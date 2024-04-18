@@ -1,0 +1,52 @@
+:root {
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color-scheme: light dark;
+  background-color: #231F20;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+#pokedex-container {
+  display: grid;
+  grid-template-columns: repeat(5, min-content);
+  justify-content: center;
+}
+
+.card {
+  background-color: #425563;
+  margin: 0.2rem;
+  padding: 0.3rem;
+  border-radius: 4px;
+}
+
+.sprite {
+  background-color: #E8EDEE;
+}
+
+.type-container {
+  display: flex;
+  gap: 0.4rem;
+  font-size: 0.7rem;
+}
+
+.type {
+  background-color: #303846;
+  border-radius: 4px;
+  padding: 0.2rem 0.4rem;
+}
+
+button {
+  margin: 1rem;
+  padding: 0.2rem;
+}
