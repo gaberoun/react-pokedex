@@ -38,11 +38,10 @@ export default function AllPokemons() {
   
   return (
     <section id='all-pokemons'>
-      <Link className='menu' to='/'>Back to Menu</Link>
       <h1>Pokedex</h1>
       <div id='pokedex-container'>
         {pokemons.map((pokemon, index) => (
-          <Link to={`/${pokemon.name}`} className='card' key={`pokemon${index}`}>
+          <Link to={`/pokemon/${pokemon.name}`} className='card' key={`pokemon${index}`}>
             <img src={pokemon.sprites.front_default} className='sprite'/>
             <p className='name'>{ pokemon.name }</p>
             <div className='type-container'>

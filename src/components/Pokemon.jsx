@@ -7,10 +7,6 @@ export default function Pokemon() {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    console.log('loading', loading);
-  }, [loading])
-
   const load = async () => {
     try {   
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}/`);
@@ -20,7 +16,8 @@ export default function Pokemon() {
         weight, 
         id, 
         types,
-        location_area_encounters
+        location_area_encounters,
+        forms
       } = await response.json();
 
       const locationResponse = await fetch(location_area_encounters); 
@@ -39,20 +36,22 @@ export default function Pokemon() {
         weight, 
         id, 
         types,
-        locations
+        locations,
+        forms
       });
     } catch (error) {
-      console.log(error);
+      return({ error: 'Pokemon does not exist' });
     }
   }
 
   useEffect(() => {
     (async () => {
       const fetchedPokemon = await load();
+      if (fetchedPokemon.hasOwnProperty('error')) {
+        setData(fetchedPokemon.error)
+      }
       setData(fetchedPokemon);
       setLoading(false);
-
-      console.log(fetchedPokemon);
     })();
 
     return () => {
@@ -63,20 +62,21 @@ export default function Pokemon() {
 
   return (
     <>
+      { data.hasOwnProperty('error') ? (<h1>{ data.error }</h1>) : 
       <section id='pokemon'>
-      <Link className='menu' to='/'>Back to Menu</Link>
         <div className='left'>
-          <h1>{ pokemon }</h1>
-          <h3>{ loading ? 'Loading...' : `ID: ${data.id}` }</h3>
+          <h1>{ loading ? 'Loading...' : data.forms[0].name }</h1>
+          <h3>{ `ID: ${data.id}` }</h3>
           <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${data.id}.png`} id='image' />
           <p>Height: {data.height} decimeters</p>
           <p>Weight: {data.weight} hectograms</p>
           <h3>Types: </h3>
           <div className='type-container'>
-            {loading ? 'Loading...' : data.types.map((type) => (
+            {loading ? 'Loading...' : data.types.map((type, index) => (
               <span 
                 className='type'
                 style={{backgroundColor: convertColor(type.type.name)}}
+                key={`type${index}`}
               >{ type.type.name }</span>
             ))}
           </div>
@@ -92,6 +92,7 @@ export default function Pokemon() {
           </div>
         </div>
       </section>
+      }
     </>
   )
 }

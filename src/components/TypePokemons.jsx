@@ -42,11 +42,10 @@ export default function TypePokemons({ type }) {
   
   return (
     <section id='type-pokemons'>
-      <Link className='menu' to='/types'>Back to Types</Link>
       <h1>{ type } Pokemons</h1>
       <div id='pokedex-container'>
         {pokemons.map((pokemon, index) => (
-          <Link to={`/${pokemon.name}`} className='card' key={`pokemon${index}`}>
+          <Link to={`/pokemon/${pokemon.name}`} className='card' key={`pokemon${index}`}>
             <img src={pokemon.sprites.front_default} className='sprite'/>
             <p className='name'>{ pokemon.name }</p>
             <div className='type-container'>
